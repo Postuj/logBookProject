@@ -1,0 +1,18 @@
+name: flutter_module
+description: Brick for creating new flutter app module
+version: 0.1.0+1
+environment:
+  mason: ">=0.1.0-dev.38 <0.1.0"
+
+#  * a type (string, number, boolean, enum, or array)
+#  * an optional short description
+#  * an optional default value
+#  * an optional list of default values (array only)
+#  * an optional prompt phrase used when asking for the variable
+#  * a list of values (enums only)
+vars:
+  name:
+    type: string
+    description: Module name
+    default: Module
+    prompt: Module name

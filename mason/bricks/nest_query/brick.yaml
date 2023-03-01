@@ -1,0 +1,14 @@
+name: nest_query
+description: Brick for creating nest queries.
+
+version: 0.1.0+1
+
+environment:
+  mason: ">=0.1.0-dev.38 <0.1.0"
+
+vars:
+  name:
+    type: string
+    description: Query name
+    default: Query
+    prompt: Query name

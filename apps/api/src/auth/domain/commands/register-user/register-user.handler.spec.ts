@@ -54,7 +54,7 @@ describe('LogInUserHandler', () => {
     // act
     const result = await uut.execute(command);
     // assert
-    expect(result).toEqual(mockTokens);
+    expect(result).toEqual({ ...mockTokens, userId: mockUserId });
     expect(mockUserPrivate.setRefreshTokenHash).toHaveBeenCalledWith(
       mockTokens.refreshToken,
     );

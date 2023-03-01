@@ -10,6 +10,7 @@ import { EmailOccupiedException } from '../../exceptions/exceptions';
 export type RegisterUserCommandOutput = {
   accessToken: string;
   refreshToken: string;
+  userId: string;
 };
 
 @CommandHandler(RegisterUserCommand)
@@ -42,7 +43,7 @@ export class RegisterUserHandler
       userPrivate.refreshTokenHash,
     );
 
-    return tokens;
+    return { ...tokens, userId: userPrivate.user.id };
   }
 
   private async checkIfEmailIsOccupied(email: string): Promise<void> {

@@ -41,7 +41,7 @@ export class RefreshAccessTokenHandler
       userPrivate.refreshTokenHash,
     );
 
-    this.logger.log(`User@${userPrivate.user.email} refreshed access token`);
+    this.logger.log(`User@${userPrivate.user.id} refreshed access token`);
     return { ...tokens };
   }
 

@@ -1,9 +1,9 @@
 import { Column, Entity, JoinColumn, OneToOne } from 'typeorm';
-import { BaseSchema } from '../../../database/base.schema';
+import { IdentifiableEntitySchema } from '../../../database/identifiable-entity.schema';
 import { UserSchema } from '../../../users/gateways/database/user.schema';
 
 @Entity('users_private')
-export class UserPrivateSchema extends BaseSchema {
+export class UserPrivateSchema extends IdentifiableEntitySchema {
   @Column()
   passwordHash: string;
 

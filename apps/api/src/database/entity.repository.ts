@@ -3,6 +3,7 @@ import { AggregateRoot } from '@nestjs/cqrs';
 import { FindManyOptions, FindOneOptions, Repository } from 'typeorm';
 
 import { EntitySchemaMapper } from './entity-schema.factory';
+import { EntityNotFoundException } from './exceptions';
 import { IdentifiableEntitySchema } from './identifiable-entity.schema';
 
 export abstract class EntityRepository<
@@ -17,20 +18,20 @@ export abstract class EntityRepository<
   protected async findOne(
     entityFilterQuery?: FindOneOptions<TSchema>,
   ): Promise<TEntity> {
-    const entity = await this.entityRepo.findOne(entityFilterQuery);
+    const entitySchema = await this.entityRepo.findOne(entityFilterQuery);
 
-    if (!entity) {
-      throw new NotFoundException('Entity was not found.');
+    if (!entitySchema) {
+      throw new EntityNotFoundException();
     }
 
-    return this.entitySchemaMapper.fromSchema(entity);
+    return this.entitySchemaMapper.fromSchema(entitySchema);
   }
 
   protected async find(
     entityFilterQuery?: FindManyOptions<TSchema>,
   ): Promise<TEntity[]> {
-    return (await this.entityRepo.find(entityFilterQuery)).map(
-      (entityDocument) => this.entitySchemaMapper.fromSchema(entityDocument),
+    return (await this.entityRepo.find(entityFilterQuery)).map((entitySchema) =>
+      this.entitySchemaMapper.fromSchema(entitySchema),
     );
   }
 

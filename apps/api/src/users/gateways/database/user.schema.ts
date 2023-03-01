@@ -1,8 +1,8 @@
 import { Column, Entity } from 'typeorm';
-import { BaseSchema } from '../../../database/base.schema';
+import { IdentifiableEntitySchema } from '../../../database/identifiable-entity.schema';
 
 @Entity('users')
-export class UserSchema extends BaseSchema {
+export class UserSchema extends IdentifiableEntitySchema {
   @Column()
   email: string;
 }

@@ -1,7 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { BaseEntityRepository } from '../../../database/base-entity.repository';
+import { IdentifiableEntityRepository } from '../../../database/base-entity.repository';
 import { UserEntityRepository } from '../../../users/gateways/database/user-entity.repository';
 import { UserPrivate } from '../../domain/entities/user-private.entity';
 import { UserPrivateRepository } from '../../domain/gateways/user-private.repository';
@@ -10,7 +10,7 @@ import { UserPrivateSchema } from './user-private.schema';
 
 @Injectable()
 export class UserPrivateEntityRepository
-  extends BaseEntityRepository<UserPrivateSchema, UserPrivate>
+  extends IdentifiableEntityRepository<UserPrivateSchema, UserPrivate>
   implements UserPrivateRepository
 {
   private readonly logger = new Logger(UserPrivateEntityRepository.name);

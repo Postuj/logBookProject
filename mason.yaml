@@ -1,0 +1,7 @@
+bricks:
+  flutter_module:
+    path: mason/bricks/module
+  nest_command:
+    path: mason/bricks/nest_command
+  nest_query:
+    path: mason/bricks/nest_query

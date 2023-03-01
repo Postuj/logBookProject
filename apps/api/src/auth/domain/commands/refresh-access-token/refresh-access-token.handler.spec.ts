@@ -3,10 +3,6 @@ import { AuthService } from '../../services/auth.service';
 import { TestBed } from '@automock/jest';
 import { UserPrivate } from '../../entities/user-private.entity';
 import { User } from '../../../../users/domain/entities/user.entity';
-import {
-  RefreshTokensDoNotMatchException,
-  UserPrivateNotFoundException,
-} from '../../exceptions/exceptions';
 import { MockUserPrivate } from '../../../test/mocks/mocks';
 import { RefreshAccessTokenHandler } from './refresh-access-token.handler';
 import { RefreshAccessTokenCommand } from './refresh-access-token.command';
@@ -15,7 +11,6 @@ describe('RefreshAccessTokenHandler', () => {
   const mockUserId = 'testUserId';
   const mockUserPrivateId = 'testUserPrivateId';
   const mockRefreshTokenHash = 'mockRefreshTokenHash';
-  const mockRefreshToken = 'mockRefreshToken';
   const mockTokens = {
     accessToken: 'acc1',
     refreshToken: 'rfrsh1',
