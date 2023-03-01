@@ -9,6 +9,7 @@ import { LoginUserCommand } from './login-user.command';
 export type LoginUserCommandOutput = {
   accessToken: string;
   refreshToken: string;
+  userId: string;
 };
 
 @CommandHandler(LoginUserCommand)
@@ -34,8 +35,8 @@ export class LoginUserHandler implements ICommandHandler<LoginUserCommand> {
       userPrivate.refreshTokenHash,
     );
 
-    this.logger.log(`User@${userPrivate.user.email} has logged in`);
-    return { ...tokens };
+    this.logger.log(`User ${userPrivate.user.email} has logged in`);
+    return { ...tokens, userId: userPrivate.user.id };
   }
 
   private async getUserPrivate(userId: string): Promise<UserPrivate> {

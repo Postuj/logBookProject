@@ -4,7 +4,7 @@ import { EntityRepository } from './entity.repository';
 
 import { IdentifiableEntitySchema } from './identifiable-entity.schema';
 
-export abstract class BaseEntityRepository<
+export abstract class IdentifiableEntityRepository<
   TSchema extends IdentifiableEntitySchema,
   TEntity extends AggregateRoot,
 > extends EntityRepository<TSchema, TEntity> {

@@ -17,17 +17,23 @@ import { RegisterUserCommandOutput } from '../../domain/commands/register-user/r
 import { Public } from '../../../core/public';
 import { GetUser } from '../../../users/delivery/decorators/user.decorator';
 import { User } from '../../../users/domain/entities/user.entity';
-import { LoginRequestDto } from '../dto/login/login-request.dto';
-import { LoginResponseDto } from '../dto/login/login-response.dto';
-import { RefreshAccessTokenRequestDto } from '../dto/refresh-access-token/refresh-access-token-request.dto';
-import { RefreshAccessTokenResponseDto } from '../dto/refresh-access-token/refresh-access-token-response.dto';
-import { RegisterRequestDto } from '../dto/register/register-request.dto';
-import { RegisterResponseDto } from '../dto/register/register-response.dto';
+import { LoginRequestDto, LoginResponseDto } from '../dto/login.dto';
+import { RefreshAccessTokenRequestDto } from '../dto/refresh-access-token.dto';
+import { RegisterRequestDto, RegisterResponseDto } from '../dto/register.dto';
 import { JwtRefreshTokenAuthGuard } from '../guards/jwtRefreshToken-auth.guard';
 import { LocalAuthGuard } from '../guards/local-auth.guard';
 import { UserPrivate } from '../../domain/entities/user-private.entity';
 import { GetUserPrivate } from '../decorators/user-private.decorator';
+import { AuthTokensDto } from '../dto/auth-tokens.dto';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import {
+  ApiCreatedResponse,
+  ApiForbiddenResponse,
+  ApiOkResponse,
+  ApiUnauthorizedResponse,
+} from '@nestjs/swagger';
 
+@ApiTags('auth')
 @Controller('auth')
 export class AuthController {
   constructor(private readonly commandBus: CommandBus) {}
@@ -35,41 +41,47 @@ export class AuthController {
   @Public()
   @UseGuards(LocalAuthGuard)
   @HttpCode(HttpStatus.OK)
+  @ApiUnauthorizedResponse()
+  @ApiOkResponse({ type: AuthTokensDto })
   @Post('login')
   async logIn(
     @GetUser() user: User,
     @Body() dto: LoginRequestDto,
   ): Promise<LoginResponseDto> {
-    const tokens = await this.commandBus.execute<
+    const tokensAndUserId = await this.commandBus.execute<
       LoginUserCommand,
       LoginUserCommandOutput
     >(new LoginUserCommand(user.id));
-    return tokens;
+    return tokensAndUserId;
   }
 
   @Public()
   @HttpCode(HttpStatus.CREATED)
+  @ApiForbiddenResponse()
+  @ApiCreatedResponse({ type: AuthTokensDto })
   @Post('signup')
   async singUp(
     @Body() registerDto: RegisterRequestDto,
   ): Promise<RegisterResponseDto> {
     const { email, password } = registerDto;
-    const tokens = await this.commandBus.execute<
+    const tokensAndUserId = await this.commandBus.execute<
       RegisterUserCommand,
       RegisterUserCommandOutput
     >(new RegisterUserCommand(email, password));
 
-    return tokens;
+    return tokensAndUserId;
   }
 
   @Public()
   @UseGuards(JwtRefreshTokenAuthGuard)
   @HttpCode(HttpStatus.OK)
+  @ApiUnauthorizedResponse()
+  @ApiOkResponse({ type: AuthTokensDto })
   @Post('refresh-token')
   async refreshToken(
     @GetUserPrivate() userPrivate: UserPrivate,
     @Body() dto: RefreshAccessTokenRequestDto,
-  ): Promise<RefreshAccessTokenResponseDto> {
+  ): Promise<AuthTokensDto> {
     const { accessToken, refreshToken } = await this.commandBus.execute<
       RefreshAccessTokenCommand,
       RefreshAccessTokenCommandOutput
@@ -81,8 +93,11 @@ export class AuthController {
     };
   }
 
+  @ApiBearerAuth()
   @HttpCode(HttpStatus.OK)
   @Post('logout')
+  @ApiUnauthorizedResponse()
+  @ApiOkResponse()
   logout(@GetUser() user: User) {
     return this.commandBus.execute<LogoutUserCommand, void>(
       new LogoutUserCommand(user.id),

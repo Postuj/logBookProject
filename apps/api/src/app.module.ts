@@ -6,6 +6,7 @@ import { UsersModule } from './users/users.module';
 import { APP_GUARD } from '@nestjs/core';
 import { JwtAuthGuard } from './auth/delivery/guards/jwt-auth.guard';
 import { Env } from './core/constants/environment';
+import { WorkoutsModule } from './workouts/workouts.module';
 
 @Module({
   imports: [
@@ -13,6 +14,7 @@ import { Env } from './core/constants/environment';
     DatabaseModule,
     AuthModule,
     UsersModule,
+    WorkoutsModule,
   ],
   controllers: [],
   providers: [

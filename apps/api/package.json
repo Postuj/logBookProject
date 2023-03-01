@@ -18,7 +18,7 @@
     "test:watch": "cross-env ENV=test jest --watchAll",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "cross-env ENV=e2e jest --config ./test/jest-e2e.json"
+    "test:e2e": "cross-env ENV=e2e jest --runInBand --config ./test/jest-e2e.json"
   },
   "dependencies": {
     "@nestjs/common": "^8.0.0",
@@ -28,6 +28,7 @@
     "@nestjs/jwt": "^9.0.0",
     "@nestjs/passport": "^9.0.0",
     "@nestjs/platform-express": "^8.0.0",
+    "@nestjs/swagger": "^6.2.1",
     "@nestjs/typeorm": "^9.0.1",
     "bcrypt": "^5.1.0",
     "class-transformer": "^0.5.1",

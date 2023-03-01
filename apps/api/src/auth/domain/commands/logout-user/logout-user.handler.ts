@@ -17,7 +17,7 @@ export class LogoutUserHandler implements ICommandHandler<LogoutUserCommand> {
     await userPrivate.setRefreshTokenHash(null);
     await this.userPrivateRepo.updateOneRefreshTokenHash(userPrivate.id, null);
 
-    this.logger.log(`User@${userPrivate.user.email} has logged out`);
+    this.logger.log(`User@${userPrivate.user.id} has logged out`);
   }
 
   private async getUserPrivate(userId: string): Promise<UserPrivate> {

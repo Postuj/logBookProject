@@ -1,10 +1,10 @@
 import { Env } from '../core/constants/environment';
 
 const schemaNames = {
-  [Env.dev]: 'public',
+  [Env.dev]: 'dev',
   [Env.prod]: 'prod',
   [Env.test]: 'public',
-  [Env.e2e]: 'e2e',
+  [Env.e2e]: 'public',
 };
 
 export interface SchemaOptions {

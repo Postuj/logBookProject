@@ -4,6 +4,11 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserPrivateSchema } from '../auth/gateways/database/user-private.schema';
 import { Env } from '../core/constants/environment';
 import { UserSchema } from '../users/gateways/database/user.schema';
+import { ExerciseTemplateSchema } from '../workouts/gateways/database/exercise-templates/exercise-template.schema';
+import {
+  WorkoutExerciseTemplateSchema,
+  WorkoutTemplateSchema,
+} from '../workouts/gateways/database/workout-templates/workout-template.schema';
 import { DatabaseSchemas } from './schemas';
 
 @Module({
@@ -20,7 +25,13 @@ import { DatabaseSchemas } from './schemas';
           port: configService.get<number>('DB_PORT'),
           username: configService.get<string>('DB_USER'),
           database: configService.get<string>('DB_NAME'),
-          entities: [UserSchema, UserPrivateSchema],
+          entities: [
+            UserSchema,
+            UserPrivateSchema,
+            WorkoutTemplateSchema,
+            ExerciseTemplateSchema,
+            WorkoutExerciseTemplateSchema,
+          ],
           ...DatabaseSchemas.schemaOptions,
         };
       },

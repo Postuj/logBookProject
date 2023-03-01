@@ -1,0 +1,14 @@
+name: nest_command
+description: Brick for creating nest commands.
+
+version: 0.1.0+1
+
+environment:
+  mason: ">=0.1.0-dev.38 <0.1.0"
+
+vars:
+  name:
+    type: string
+    description: Command name
+    default: Command
+    prompt: Command name

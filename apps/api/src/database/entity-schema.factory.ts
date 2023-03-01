@@ -7,5 +7,5 @@ export interface EntitySchemaMapper<
   TEntity extends AggregateRoot,
 > {
   toSchema(entity: TEntity): TSchema;
-  fromSchema(entitySchema: TSchema): TEntity;
+  fromSchema(schema: TSchema): TEntity;
 }

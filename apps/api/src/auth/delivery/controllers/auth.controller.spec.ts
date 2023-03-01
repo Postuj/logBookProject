@@ -1,6 +1,6 @@
 import { CommandBus, CqrsModule } from '@nestjs/cqrs';
 import { Test, TestingModule } from '@nestjs/testing';
-import { RegisterRequestDto } from '../dto/register/register-request.dto';
+import { RegisterRequestDto } from '../dto/register.dto';
 import { AuthController } from './auth.controller';
 
 describe('AuthController', () => {

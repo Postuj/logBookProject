@@ -26,6 +26,7 @@ describe('AuthModule (e2e)', () => {
             if (err) done(err);
             expect(res.body).toEqual(
               expect.objectContaining({
+                userId: expect.any(String),
                 accessToken: expect.any(String),
                 refreshToken: expect.any(String),
               }),
@@ -52,6 +53,7 @@ describe('AuthModule (e2e)', () => {
             if (err) done(err);
             expect(res.body).toEqual(
               expect.objectContaining({
+                userId: expect.any(String),
                 accessToken: expect.any(String),
                 refreshToken: expect.any(String),
               }),
@@ -137,6 +139,7 @@ describe('AuthModule (e2e)', () => {
             if (err) done(err);
             expect(res.body).toEqual(
               expect.objectContaining({
+                userId: expect.any(String),
                 accessToken: expect.any(String),
                 refreshToken: expect.any(String),
               }),
@@ -163,6 +166,7 @@ describe('AuthModule (e2e)', () => {
             if (err) done(err);
             expect(res.body).toEqual(
               expect.objectContaining({
+                userId: expect.any(String),
                 accessToken: expect.any(String),
                 refreshToken: expect.any(String),
               }),
