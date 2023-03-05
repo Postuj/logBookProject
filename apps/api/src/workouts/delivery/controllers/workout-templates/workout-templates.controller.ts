@@ -33,7 +33,7 @@ import { WorkoutTemplateDtoMapper } from '../../mappers/workout-template-dto.map
 
 @ApiTags('workout-templates')
 @ApiBearerAuth()
-@Controller('workout-templates')
+@Controller('workouts/templates')
 export class WorkoutTemplatesController {
   constructor(
     private readonly commandBus: CommandBus,

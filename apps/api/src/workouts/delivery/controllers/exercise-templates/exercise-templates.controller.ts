@@ -34,7 +34,7 @@ import { ExerciseTemplateDtoMapper } from '../../mappers/exercise-template-dto.m
 
 @ApiTags('exercise-templates')
 @ApiBearerAuth()
-@Controller('exercise-templates')
+@Controller('workouts/exercises/templates')
 export class ExerciseTemplatesController {
   constructor(
     private readonly commandBus: CommandBus,

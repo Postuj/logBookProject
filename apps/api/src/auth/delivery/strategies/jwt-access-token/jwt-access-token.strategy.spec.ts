@@ -4,7 +4,7 @@ import { User } from '../../../../users/domain/entities/user.entity';
 import { UserEntityRepository } from '../../../../users/gateways/database/user-entity.repository';
 import { JwtAccessTokenStrategy } from './jwt-access-token.strategy';
 
-describe.only('JwtAccessTokenStrategy', () => {
+describe('JwtAccessTokenStrategy', () => {
   const env = process.env;
   const mockUserId = 'testUserId';
   const payload = { sub: mockUserId };

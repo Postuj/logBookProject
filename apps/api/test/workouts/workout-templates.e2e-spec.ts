@@ -6,13 +6,13 @@ import {
   createE2ETestApp,
   createExerciseTemplate,
 } from '../utils/e2e.utils';
-import { E2EAppUser, E2EExerciseTemplate } from '../utils/entities';
+import { E2EEntities } from '../utils/entities';
 
 describe('WorkoutTemplates (e2e)', () => {
   let app: INestApplication;
-  let user: E2EAppUser;
-  let exerciseTemplate: E2EExerciseTemplate;
-  const uri = '/workout-templates';
+  let user: E2EEntities.AppUser;
+  let exerciseTemplate: E2EEntities.ExerciseTemplate;
+  const uri = '/workouts/templates';
   const email = 'user@mail.com';
   const password = 'password';
   const templateIds: string[] = [];
@@ -30,11 +30,11 @@ describe('WorkoutTemplates (e2e)', () => {
     });
   });
 
-  describe('Endpoints', () => {
+  describe('Endpoints (/workouts/templates)', () => {
     const name = 'test';
     const newName = 'newWorkoutTemplateName';
 
-    describe('/workout-templates (POST)', () => {
+    describe('/ (POST)', () => {
       it('should allow user to create workout template without exercises', (done) => {
         request(app.getHttpServer())
           .post(uri)
