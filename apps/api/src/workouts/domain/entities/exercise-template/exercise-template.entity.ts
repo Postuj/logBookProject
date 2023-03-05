@@ -9,26 +9,10 @@ export type ExerciseOptions = {
 export class ExerciseTemplate extends IdentifiableEntity {
   constructor(
     id: string,
-    private _name: string,
-    private _options: ExerciseOptions,
+    public name: string,
+    public options: ExerciseOptions,
     public readonly createdById: string,
   ) {
     super(id);
-  }
-
-  public get name(): string {
-    return this._name;
-  }
-
-  public set name(newName: string) {
-    this._name = newName;
-  }
-
-  public get options(): ExerciseOptions {
-    return this._options;
-  }
-
-  public set options(newOptions: ExerciseOptions) {
-    this._options = newOptions;
   }
 }

@@ -1,11 +1,5 @@
-import {
-  CreateDateColumn,
-  Entity,
-  VersionColumn,
-  UpdateDateColumn,
-} from 'typeorm';
+import { CreateDateColumn, VersionColumn, UpdateDateColumn } from 'typeorm';
 
-@Entity()
 export abstract class BaseEntitySchema {
   @CreateDateColumn({ name: 'created_at', type: 'timestamptz' })
   createdAt: Date = new Date();

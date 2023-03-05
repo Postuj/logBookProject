@@ -2,17 +2,17 @@ import { HttpStatus } from '@nestjs/common';
 import { INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
 import { createAppUser, createE2ETestApp } from '../utils/e2e.utils';
-import { E2EAppUser } from '../utils/entities';
+import { E2EEntities } from '../utils/entities';
 
 describe('ExerciseTemplates (e2e)', () => {
   let app: INestApplication;
-  let user: E2EAppUser;
+  let user: E2EEntities.AppUser;
 
   let templateId: string;
   let accessToken: string;
   const email = 'user@mail.com';
   const password = 'password';
-  const uri = '/exercise-templates';
+  const uri = '/workouts/exercises/templates';
 
   beforeAll(async () => {
     app = await createE2ETestApp();
@@ -20,7 +20,7 @@ describe('ExerciseTemplates (e2e)', () => {
     accessToken = 'Bearer ' + user.accessToken;
   });
 
-  describe('Endpoints /exercise-templates', () => {
+  describe('Endpoints (/workouts/exercises/templates)', () => {
     const name = 'test';
     const newName = 'newExerciseTemplateName';
 

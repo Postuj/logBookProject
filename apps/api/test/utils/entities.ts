@@ -1,19 +1,57 @@
-export class E2EAppUser {
-  constructor(
-    public readonly id: string,
-    public readonly email: string,
-    public readonly accessToken: string,
-    public readonly refreshToken: string,
-  ) {}
-}
+export namespace E2EEntities {
+  export interface AppUser {
+    id: string;
+    email: string;
+    accessToken: string;
+    refreshToken: string;
+  }
 
-export class E2EExerciseTemplate {
-  constructor(
-    public readonly id: string,
-    public readonly name: string,
-    public readonly createdById: string,
-    public readonly hasRepetitions: boolean,
-    public readonly hasWeight: boolean,
-    public readonly hasTime: boolean,
-  ) {}
+  export interface ExerciseTemplate {
+    id: string;
+    name: string;
+    createdById: string;
+    hasRepetitions: boolean;
+    hasWeight: boolean;
+    hasTime: boolean;
+  }
+
+  export interface Series {
+    id: string;
+    repetitions?: number;
+    weight?: number;
+    seconds?: number;
+  }
+
+  export interface NewSeries {
+    repetitions?: number;
+    weight?: number;
+    seconds?: number;
+  }
+
+  export interface Exercise {
+    id: string;
+    series: Series;
+    hasRepetitions: boolean;
+    hasWeight: boolean;
+    hasTime: boolean;
+  }
+
+  export interface NewExercise {
+    templateId: string;
+    series: NewSeries;
+  }
+
+  export interface Workout {
+    id: string;
+    createdById: string;
+    exercises: Exercise[];
+    templateId?: string;
+    finishedAt?: Date;
+  }
+
+  export interface NewWorkout {
+    name: string;
+    templateId?: string;
+    exercises: NewExercise[];
+  }
 }

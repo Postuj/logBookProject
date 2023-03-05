@@ -1,13 +1,10 @@
 import { TestBed } from '@automock/jest';
 import { CreateWorkoutTemplateHandler } from './create-workout-template.handler';
 import { CreateWorkoutTemplateCommand } from './create-workout-template.command';
-import { ExerciseTemplatesRepository } from '../../../gateways/database/exercise-templates/exercise-template.repository';
-import { WorkoutTemplatesRepository } from '../../../gateways/database/workout-templates/workout-templates.repository';
 import { WorkoutTemplateFactory } from '../../entities/workout-template/workout-template.factory';
 import { WorkoutTemplate } from '../../entities/workout-template/workout-template.entity';
 import { ExerciseTemplate } from '../../entities/exercise-template/exercise-template.entity';
 import { WorkoutTemplateNameOccupiedException } from '../../exceptions/exceptions';
-import { EntityNotFoundException } from '../../../../database/exceptions';
 import { ExerciseTemplatesService } from '../../services/exercise-templates/exercise-templates.service';
 import { WorkoutTemplatesService } from '../../services/workout-templates/workout-templates.service';
 

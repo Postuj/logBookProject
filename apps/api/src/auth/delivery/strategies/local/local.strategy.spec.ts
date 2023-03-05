@@ -1,14 +1,12 @@
 import { TestBed } from '@automock/jest';
 import { UnauthorizedException } from '@nestjs/common/exceptions';
 import { User } from '../../../../users/domain/entities/user.entity';
-import { RegisterUserCommand } from '../../../domain/commands/register-user/register-user.command';
 import { UserPrivate } from '../../../domain/entities/user-private.entity';
-import { EmailOccupiedException } from '../../../domain/exceptions/exceptions';
 import { UserPrivateEntityRepository } from '../../../gateways/database/user-private-entity.repository';
 import { MockUserPrivate } from '../../../test/mocks/mocks';
 import { LocalStrategy } from './local.strategy';
 
-describe.only('LocalStrategy', () => {
+describe('LocalStrategy', () => {
   const mockUserId = 'testUserId';
   const mockUserPrivateId = 'testUserPrivateId';
   const mockRefreshTokenHash = 'mockRefreshTokenHash';

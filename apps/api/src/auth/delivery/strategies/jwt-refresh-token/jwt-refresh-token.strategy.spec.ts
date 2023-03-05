@@ -8,7 +8,7 @@ import { Request } from 'express';
 import { UnauthorizedException } from '@nestjs/common';
 import { RefreshTokensDoNotMatchException } from '../../../domain/exceptions/exceptions';
 
-describe.only('JwtRefreshTokenStrategy', () => {
+describe('JwtRefreshTokenStrategy', () => {
   const env = process.env;
   const mockUserId = 'testUserId';
   const mockUserPrivateId = 'testUserPrivateId';

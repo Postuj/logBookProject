@@ -5,10 +5,13 @@ import { UserPrivateSchema } from '../auth/gateways/database/user-private.schema
 import { Env } from '../core/constants/environment';
 import { UserSchema } from '../users/gateways/database/user.schema';
 import { ExerciseTemplateSchema } from '../workouts/gateways/database/exercise-templates/exercise-template.schema';
+import { ExerciseSchema } from '../workouts/gateways/database/exercises/exercise.schema';
+import { SeriesSchema } from '../workouts/gateways/database/series/series.schema';
 import {
   WorkoutExerciseTemplateSchema,
   WorkoutTemplateSchema,
 } from '../workouts/gateways/database/workout-templates/workout-template.schema';
+import { WorkoutSchema } from '../workouts/gateways/database/workouts/workout.schema';
 import { DatabaseSchemas } from './schemas';
 
 @Module({
@@ -31,6 +34,9 @@ import { DatabaseSchemas } from './schemas';
             WorkoutTemplateSchema,
             ExerciseTemplateSchema,
             WorkoutExerciseTemplateSchema,
+            SeriesSchema,
+            ExerciseSchema,
+            WorkoutSchema,
           ],
           ...DatabaseSchemas.schemaOptions,
         };

@@ -2,7 +2,7 @@ import { INestApplication, ValidationPipe } from '@nestjs/common';
 import { TestingModule, Test } from '@nestjs/testing';
 import { AppModule } from '../../src/app.module';
 import * as request from 'supertest';
-import { E2EAppUser, E2EExerciseTemplate } from './entities';
+import { E2EEntities } from './entities';
 import { ExerciseOptions } from '../../src/workouts/domain/entities/exercise-template/exercise-template.entity';
 
 export type RegisterResponse = {
@@ -27,7 +27,7 @@ export const createAppUser = async (
   app: INestApplication,
   email: string,
   password: string,
-): Promise<E2EAppUser> => {
+): Promise<E2EEntities.AppUser> => {
   const signUp = () =>
     new Promise<RegisterResponse>((resolve) => {
       request(app.getHttpServer())
@@ -38,33 +38,24 @@ export const createAppUser = async (
         });
     });
   const { accessToken, refreshToken, userId } = await signUp();
-  return new E2EAppUser(userId, email, accessToken, refreshToken);
+  return { id: userId, email, accessToken, refreshToken };
 };
 
 export const createExerciseTemplate = async (
   app: INestApplication,
-  user: E2EAppUser,
+  user: E2EEntities.AppUser,
   name: string,
   options: ExerciseOptions,
-): Promise<E2EExerciseTemplate> => {
+): Promise<E2EEntities.ExerciseTemplate> => {
   const create = () =>
-    new Promise<E2EExerciseTemplate>((resolve) => {
+    new Promise<E2EEntities.ExerciseTemplate>((resolve) => {
       request(app.getHttpServer())
-        .post('/exercise-templates')
+        .post('/workouts/exercises/templates')
         .send({ name, ...options })
         .set('Authorization', 'Bearer ' + user.accessToken)
         .end((err, res) => {
           const data = res.body;
-          resolve(
-            new E2EExerciseTemplate(
-              data.id,
-              data.name,
-              data.createdById,
-              data.hasRepetitions,
-              data.hasWeight,
-              data.hasTime,
-            ),
-          );
+          resolve(data);
         });
     });
   const template = await create();

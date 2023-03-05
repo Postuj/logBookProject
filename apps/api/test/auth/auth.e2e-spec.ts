@@ -4,6 +4,7 @@ import * as request from 'supertest';
 import { createE2ETestApp } from '../utils/e2e.utils';
 
 describe('AuthModule (e2e)', () => {
+  const uri = '/auth';
   let app: INestApplication;
 
   beforeAll(async () => {
@@ -16,10 +17,10 @@ describe('AuthModule (e2e)', () => {
     const email = 'test@mail.com';
     const password = 'password';
 
-    describe('/auth/signup (POST)', () => {
+    describe('/signup (POST)', () => {
       it('should allow user to sign up', (done) => {
         request(app.getHttpServer())
-          .post('/auth/signup')
+          .post(uri + '/signup')
           .send({ email, password })
           .expect(HttpStatus.CREATED)
           .end((err, res) => {
@@ -37,16 +38,16 @@ describe('AuthModule (e2e)', () => {
 
       it('should not allow user to register with already occupied email', (done) => {
         request(app.getHttpServer())
-          .post('/auth/signup')
+          .post(uri + '/signup')
           .send({ email, password })
           .expect(HttpStatus.FORBIDDEN, done);
       });
     });
 
-    describe('/auth/login (POST)', () => {
+    describe('/login (POST)', () => {
       it('should allow user to log in', (done) => {
         request(app.getHttpServer())
-          .post('/auth/login')
+          .post(uri + '/login')
           .send({ email, password })
           .expect(HttpStatus.OK)
           .end((err, res) => {
@@ -66,23 +67,23 @@ describe('AuthModule (e2e)', () => {
 
       it('should not allow user to log in with incorrect password', (done) => {
         request(app.getHttpServer())
-          .post('/auth/login')
+          .post(uri + '/login')
           .send({ email, password: 'badPassword' })
           .expect(HttpStatus.UNAUTHORIZED, done);
       });
 
       it('should not allow user to log in with incorrect email', (done) => {
         request(app.getHttpServer())
-          .post('/auth/login')
+          .post(uri + '/login')
           .send({ email: 'test@badmail.com', password })
           .expect(HttpStatus.UNAUTHORIZED, done);
       });
     });
 
-    describe('/auth/refresh-token (POST)', () => {
+    describe('/refresh-token (POST)', () => {
       it('should allow user to refresh access token', (done) => {
         request(app.getHttpServer())
-          .post('/auth/refresh-token')
+          .post(uri + '/refresh-token')
           .send({ refreshToken })
           .expect(HttpStatus.OK)
           .end((err, res) => {
@@ -101,23 +102,23 @@ describe('AuthModule (e2e)', () => {
 
       it('does not allow user to refresh access token with malformed refresh token', (done) => {
         request(app.getHttpServer())
-          .post('/auth/refresh-token')
+          .post(uri + '/refresh-token')
           .send({ refreshToken: 'malformed-token' })
           .expect(HttpStatus.UNAUTHORIZED, done);
       });
     });
 
-    describe('/auth/logout (POST)', () => {
+    describe('/logout (POST)', () => {
       it('should allow user to log out', (done) => {
         request(app.getHttpServer())
-          .post('/auth/logout')
+          .post(uri + '/logout')
           .set('Authorization', 'Bearer ' + accessToken)
           .expect(HttpStatus.OK, done);
       });
 
       it('should not allow user to log out without an access token', (done) => {
         request(app.getHttpServer())
-          .post('/auth/logout')
+          .post(uri + '/logout')
           .expect(HttpStatus.UNAUTHORIZED, done);
       });
     });
@@ -132,7 +133,7 @@ describe('AuthModule (e2e)', () => {
     describe('Register story', () => {
       it('should allow user to sign up', (done) => {
         request(app.getHttpServer())
-          .post('/auth/signup')
+          .post(uri + '/signup')
           .send({ email, password })
           .expect(HttpStatus.CREATED)
           .end((err, res) => {
@@ -152,14 +153,14 @@ describe('AuthModule (e2e)', () => {
 
       it('should allow user to log out', (done) => {
         request(app.getHttpServer())
-          .post('/auth/logout')
+          .post(uri + '/logout')
           .set('Authorization', 'Bearer ' + accessToken)
           .expect(HttpStatus.OK, done);
       });
 
       it('should allow user to log in', (done) => {
         request(app.getHttpServer())
-          .post('/auth/login')
+          .post(uri + '/login')
           .send({ email, password })
           .expect(HttpStatus.OK)
           .end((err, res) => {
@@ -179,7 +180,7 @@ describe('AuthModule (e2e)', () => {
 
       it('should allow user to refresh access token', (done) => {
         request(app.getHttpServer())
-          .post('/auth/refresh-token')
+          .post(uri + '/refresh-token')
           .send({ refreshToken })
           .expect(HttpStatus.OK)
           .end((err, res) => {
@@ -198,14 +199,14 @@ describe('AuthModule (e2e)', () => {
 
       it('should allow user to log out', (done) => {
         request(app.getHttpServer())
-          .post('/auth/logout')
+          .post(uri + '/logout')
           .set('Authorization', 'Bearer ' + accessToken)
           .expect(HttpStatus.OK, done);
       });
 
       it('does not allow user to refresh access token after logging out', (done) => {
         request(app.getHttpServer())
-          .post('/auth/refresh-token')
+          .post(uri + '/refresh-token')
           .send({ refreshToken })
           .expect(HttpStatus.UNAUTHORIZED, done);
       });
